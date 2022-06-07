@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { Component, createRef, h } from 'preact'
 import { sendEvent } from 'Tracker'
 import { ParsedError } from '~types/api'
-import { ErrorNames } from '~types/commons'
+import { ErrorNames, IconElement } from '~types/commons'
 import { ErrorProp } from '~types/routers'
 import { preventDefaultOnClick } from '~utils'
 import { performHttpReq } from '~utils/http'
@@ -19,10 +19,14 @@ import CopyLink from './CopyLink'
 import { LegacyTrackedEventNames } from '~types/tracker'
 import { CrossDeviceLinkProps } from '.'
 import { Country } from 'react-phone-number-input'
+import IconQRCode from './assets/IconQRCode'
+import IconSms from './assets/IconSms'
+import IconCopyLink from './assets/IconCopyLink'
 
 export type SecureLinkViewType = {
   id: string
   className: string
+  icon: IconElement
   label: string
   subtitle: string
 }[]
@@ -31,18 +35,21 @@ export const SECURE_LINK_VIEWS: SecureLinkViewType = [
   {
     id: 'qr_code',
     className: 'qrCodeLinkOption',
+    icon: IconQRCode,
     label: 'get_link.link_qr',
     subtitle: 'get_link.subtitle_qr',
   },
   {
     id: 'sms',
     className: 'smsLinkOption',
+    icon: IconSms,
     label: 'get_link.link_sms',
     subtitle: 'get_link.subtitle_sms',
   },
   {
     id: 'copy_link',
     className: 'copyLinkOption',
+    icon: IconCopyLink,
     label: 'get_link.link_url',
     subtitle: 'get_link.subtitle_url',
   },
@@ -376,23 +383,28 @@ class CrossDeviceLinkUI extends Component<Props, State> {
           >
             {visibleViewOptions
               .filter((view) => view.id !== currentViewId)
-              .map((view) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    theme.link,
-                    style.viewOption,
-                    style[view.className]
-                  )}
-                  ref={this.viewOptionBtn}
-                  onClick={preventDefaultOnClick(() =>
-                    this.handleViewOptionSelect(view.id)
-                  )}
-                  key={`view_${view.id}`}
-                >
-                  {translate(view.label)}
-                </a>
-              ))}
+              .map((view) => {
+                const Icon = view.icon
+                return (
+                  <a
+                    href="#"
+                    className={classNames(
+                      theme.link,
+                      style.viewOption,
+                      style[view.className]
+                    )}
+                    ref={this.viewOptionBtn}
+                    onClick={preventDefaultOnClick(() =>
+                      this.handleViewOptionSelect(view.id)
+                    )}
+                    data-onfido-qa={`cross-device-${view.id}-link-option`}
+                    key={`view_${view.id}`}
+                  >
+                    <Icon className={style.optionIcon} />
+                    {translate(view.label)}
+                  </a>
+                )
+              })}
           </div>
         </div>
       </div>

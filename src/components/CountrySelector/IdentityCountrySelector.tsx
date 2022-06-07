@@ -13,6 +13,7 @@ import { DocumentTypes, PoaTypes } from '~types/steps'
 
 import style from './style.scss'
 import { parseTags, preventDefaultOnClick } from '~utils'
+import IconAlert from './assets/IconAlert'
 
 export type DocProps = {
   documentType: string
@@ -65,7 +66,7 @@ class IdentityCountrySelection extends CountrySelectionBase {
 
     return (
       <div className={style.errorContainer}>
-        <i className={style.errorIcon} />
+        <IconAlert className={style.icon} />
         <span className={style.fallbackText}>
           {parseTags(noResultsErrorCopy, ({ text }) => (
             <a
