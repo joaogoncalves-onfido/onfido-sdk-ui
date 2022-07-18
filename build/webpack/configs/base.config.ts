@@ -1,9 +1,9 @@
-import { resolve } from 'path'
+import { join } from 'path'
 import { PRODUCTION_BUILD, BASE_DIR } from '../constants'
 
 export const baseConfig = {
   mode: PRODUCTION_BUILD ? 'production' : 'development',
-  context: `${BASE_DIR}/src`,
+  context: join(BASE_DIR, '/src'),
   entry: './index.tsx',
 
   resolve: {
@@ -20,7 +20,7 @@ export const baseConfig = {
       '~utils': `${BASE_DIR}/src/components/utils`,
       '~supported-documents': `${BASE_DIR}/src/supported-documents`,
       '~auth-sdk': `${BASE_DIR}/auth-sdk/FaceTec`,
-      'socket.io-client': resolve(
+      'socket.io-client': join(
         BASE_DIR,
         'node_modules/socket.io-client/dist/socket.io.js'
       ),

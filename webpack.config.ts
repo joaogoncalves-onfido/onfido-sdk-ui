@@ -10,13 +10,16 @@ import {
 import { configLib } from './build/webpack/configs/lib.config'
 import { SDK_ENV } from './build/webpack/constants'
 
+// import OnfidoDemoAppPlugin from '../../../onfido-test-app/demo/webpackPlugin/webpack'
+import OnfidoDemoAppPlugin from './onfido-test-app/demo/webpackPlugin/webpack'
+
 if (!process.env.HOT_RELOAD_ENABLED) {
   console.log('Running morph')
   runMorph()
   console.log('Completed morph')
 }
 
-const distConfig = configDist()
+const distConfig = OnfidoDemoAppPlugin(configDist())
 const measurePlugin = new SpeedMeasurePlugin()
 
 // Workaround for https://github.com/stephencookdev/speed-measure-webpack-plugin/issues/167

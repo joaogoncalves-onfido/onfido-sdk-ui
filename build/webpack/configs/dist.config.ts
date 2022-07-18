@@ -8,13 +8,16 @@ import { basePlugins } from '../plugins'
 import { SDK_ENV, CONFIG, BASE_DIR } from '../constants'
 import { minimizer } from '../utils'
 
+import { resolve } from 'path'
+
 export const configDist = () => ({
   ...baseConfig,
 
   entry: {
     [`onfido${SDK_ENV === 'Auth' ? SDK_ENV : ''}`]: './index.tsx',
-    demo: './demo/demo.tsx',
-    previewer: './demo/previewer.tsx',
+    // demo: './demo/demo.tsx',
+    // previewer: './demo/previewer.tsx',
+    demo: resolve(__dirname, '../../../onfido-test-app/demo/demo.tsx'),
   },
   target: ['web', 'es5'],
   output: {
@@ -67,24 +70,25 @@ export const configDist = () => ({
           }),
         ]
       : []),
-    new HtmlWebpackPlugin({
-      template: './demo/demo.ejs',
-      filename: 'index.html',
-      minify: { collapseWhitespace: true },
-      inject: 'body',
-      JWT_FACTORY: CONFIG.JWT_FACTORY,
-      DESKTOP_SYNC_URL: CONFIG.DESKTOP_SYNC_URL,
-      chunks: [`onfido${SDK_ENV === 'Auth' ? SDK_ENV : ''}`, 'demo'],
-    }),
-    new HtmlWebpackPlugin({
-      template: './demo/previewer.ejs',
-      filename: 'previewer/index.html',
-      minify: { collapseWhitespace: true },
-      inject: 'body',
-      JWT_FACTORY: CONFIG.JWT_FACTORY,
-      DESKTOP_SYNC_URL: CONFIG.DESKTOP_SYNC_URL,
-      chunks: ['previewer'],
-    }),
+    // OnfidoDemoAppPlugin(),
+    // new HtmlWebpackPlugin({
+    //   template: './demo/demo.ejs',
+    //   filename: 'index.html',
+    //   minify: { collapseWhitespace: true },
+    //   inject: 'body',
+    //   JWT_FACTORY: CONFIG.JWT_FACTORY,
+    //   DESKTOP_SYNC_URL: CONFIG.DESKTOP_SYNC_URL,
+    //   chunks: [`onfido${SDK_ENV === 'Auth' ? SDK_ENV : ''}`, 'demo'],
+    // }),
+    // new HtmlWebpackPlugin({
+    //   template: './demo/previewer.ejs',
+    //   filename: 'previewer/index.html',
+    //   minify: { collapseWhitespace: true },
+    //   inject: 'body',
+    //   JWT_FACTORY: CONFIG.JWT_FACTORY,
+    //   DESKTOP_SYNC_URL: CONFIG.DESKTOP_SYNC_URL,
+    //   chunks: ['previewer'],
+    // }),
   ],
 
   devServer: {
