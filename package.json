@@ -243,6 +243,7 @@
   "dependencies": {
     "@onfido/active-video-capture": "^0.0.1",
     "@sentry/browser": "^7.2.0",
+    "@xstate/react": "^3.0.0",
     "blueimp-load-image": "~2.29.0",
     "classnames": "~2.2.5",
     "core-js": "^3.21.1",
@@ -259,6 +260,7 @@
     "socket.io-client": "^4.2.0",
     "supports-webp": "~1.0.3",
     "uuid": "^8.3.2",
-    "visibilityjs": "~1.2.4"
+    "visibilityjs": "~1.2.4",
+    "xstate": "^4.32.1"
   }
 }

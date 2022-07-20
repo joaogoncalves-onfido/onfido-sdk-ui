@@ -33,6 +33,7 @@ import type {
 import type { DocumentTypes } from '~types/steps'
 import DocumentMultiFrame from 'components/DocumentMultiFrame'
 import useSdkConfigurationService from '~contexts/useSdkConfigurationService'
+import { DocumentAuto } from '../DocumentAuto'
 
 const EXCEPTIONS = {
   DOC_TYPE_NOT_PROVIDED: 'documentType was not provided',
@@ -235,23 +236,24 @@ const Document = (props: Props) => {
   const enableLiveDocumentCapture =
     useLiveDocumentCapture && (!isDesktop || isHybrid)
 
+  if (!documentType) {
+    trackException(EXCEPTIONS.DOC_TYPE_NOT_PROVIDED)
+    throw new Error('documentType not provided')
+  }
+
   if (hasCamera && useWebcam) {
     return (
-      <DocumentAutoCapture
-        {...propsWithErrorHandling}
+      <DocumentAuto
+        documentType={documentType}
         renderFallback={renderFallback}
-        renderTitle={renderTitle}
-        onValidCapture={handlePhotoCapture}
+        onCapture={handleMultiFrameCapture}
+        trackScreen={trackScreen}
+        side={side}
       />
     )
   }
 
   if (hasCamera && enableLiveDocumentCapture) {
-    if (!documentType) {
-      trackException(EXCEPTIONS.DOC_TYPE_NOT_PROVIDED)
-      throw new Error('documentType not provided')
-    }
-
     if (sdkConfiguration.experimental_features?.enable_multi_frame_capture) {
       return (
         <DocumentMultiFrame
