@@ -7,21 +7,20 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="format-detection" content="telephone=no" />
-    <% if (process.env.NODE_ENV !== "development"){ %>
-    <meta
+    <!-- <meta
       http-equiv="Content-Security-Policy"
       content="
       default-src 'self' https://assets.onfido.com;
       script-src 'self' https://assets.onfido.com https://www.woopra.com https://sentry.io;
       style-src 'self' 'unsafe-inline' https://assets.onfido.com;
-      connect-src blob: 'self' data: <%= process.env.NODE_ENV === 'test' ? 'https://localhost:8082 https://localhost:8080' : '' %> *.onfido.com wss://*.onfido.com *.dev.onfido.xyz wss://*.dev.onfido.xyz https://www.woopra.com https://*.sentry.io;
+      connect-src blob: 'self' data: https://localhost:8082 https://localhost:8080 *.onfido.com wss://*.onfido.com *.dev.onfido.xyz wss://*.dev.onfido.xyz https://www.woopra.com https://*.sentry.io;
       img-src 'self' data: blob: https://assets.onfido.com/;
       media-src blob:;
       object-src 'self' blob:;
       frame-src 'self' data: blob:;
     "
-    />
-    <% } %>
+    /> -->
+
     <style type="text/css">
       html,
       body {
@@ -75,8 +74,21 @@
         margin: 0.5em auto;
       }
     </style>
+   
   </head>
   <body>
     <div id="demo-app"></div>
+    <script  src="https://latest-onfido-sdk-ui-onfido.surge.sh/onfido.min.js"></script>
+    <link crossorigin="anonymous" href="/assets/style.css" rel="stylesheet">
+    <!-- <link crossorigin="anonymous" href="https://latest-onfido-sdk-ui-onfido.surge.sh/style.css" rel="stylesheet"> -->
+    
+    
+    <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
+    <script nomodule crossorigin id="vite-legacy-polyfill" src="/assets/polyfills-legacy.4faf3771.js"></script>
+    <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/index-legacy.71387a8a.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+
+    <script type="module" crossorigin src="/assets/index.6fc860ba.js"></script>
+    <script type="module">try{import.meta.url;import("_").catch(()=>1);}catch(e){}window.__vite_is_modern_browser=true;</script>
+    <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy build because dynamic import or import.meta.url is unsupported, syntax error above should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
   </body>
 </html>

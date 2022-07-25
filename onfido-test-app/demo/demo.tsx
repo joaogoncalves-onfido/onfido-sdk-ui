@@ -71,10 +71,10 @@ const renderDemoApp = () => {
     }
   })
 
-  console.log('public path: ', process.env.PUBLIC_PATH)
-  console.log('location pathname: ', window.location.pathname)
+  // console.log('public path: ', process.env.PUBLIC_PATH)
+  // console.log('location pathname: ', window.location.pathname)
 
-  if (window.location.pathname === process.env.PUBLIC_PATH) {
+  // if (window.location.pathname === process.env.PUBLIC_PATH) {
     render(
       useHistory ? (
         <Router>
@@ -87,9 +87,9 @@ const renderDemoApp = () => {
       ),
       rootNode
     )
-  } else {
-    window.parent.postMessage('RENDER_DEMO_READY', '*')
-  }
+  // } else {
+  //   window.parent.postMessage('RENDER_DEMO_READY', '*')
+  // }
 }
 
 renderDemoApp()

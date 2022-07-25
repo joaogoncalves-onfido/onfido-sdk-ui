@@ -7,8 +7,8 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="format-detection" content="telephone=no" />
-    <% if (process.env.NODE_ENV !== "development"){ %>
-    <meta
+    <!-- <% if (process.env.NODE_ENV !== "development"){ %> -->
+    <!-- <meta
       http-equiv="Content-Security-Policy"
       content="
         default-src 'self';
@@ -20,8 +20,8 @@
         object-src 'self' blob:;
         frame-src 'self' data: blob:;
     "
-    />
-    <% } %>
+    /> -->
+    <!-- <% } %> -->
     <style type="text/css">
       html,
       body,
@@ -101,5 +101,8 @@
   </head>
   <body>
     <div id="previewer-app"></div>
+    <!-- <script defer="defer" src="https://latest-onfido-sdk-ui-onfido.surge.sh/onfido.min.js"></script> -->
+    <!-- <link href="https://latest-onfido-sdk-ui-onfido.surge.sh/style.css" rel="stylesheet"> -->
+    <script type="module" src="/previewer.tsx"></script>
   </body>
 </html>

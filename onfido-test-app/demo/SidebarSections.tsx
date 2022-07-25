@@ -2,7 +2,7 @@ import { h, FunctionComponent } from 'preact'
 import { useCallback, useRef } from 'preact/compat'
 
 import detectSystem from '~utils/detectSystem'
-import type { SdkOptions } from '~types/sdk'
+// import type { SdkOptions } from '~types/sdk'
 
 import {
   CheckData,
@@ -273,8 +273,9 @@ export const CheckDataView: FunctionComponent<{
 )
 
 export const SystemInfo: FunctionComponent = () => {
-  const osInfo = detectSystem('os')
-  const browserInfo = detectSystem('browser')
+  return false
+  // const osInfo = detectSystem('os')
+  // const browserInfo = detectSystem('browser')
 
   return (
     <div>

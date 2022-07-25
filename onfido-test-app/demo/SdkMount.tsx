@@ -49,12 +49,12 @@ const SdkMount: FunctionComponent<Props> = ({
         url,
         'for',
         regionCode,
-        'in',
-        process.env.NODE_ENV
+        'in'
+        // process.env.NODE_ENV
       )
     }
 
-    console.log('Calling `Onfido.init` with the following options:', options)
+    console.log('Calling `Onfido.init` with the following options:', options, Onfido)
 
     if (mountEl.current) {
       const sdk = Onfido.init({

@@ -507,17 +507,18 @@ export const commonLanguages: Record<
 export const commonRegions: ServerRegions[] = ['EU', 'US', 'CA']
 
 export const getTokenFactoryUrl = (region: ServerRegions): string => {
-  if (region === 'US' && process.env.US_JWT_FACTORY) {
-    return process.env.US_JWT_FACTORY
-  }
+  return 'https://token-factory.onfido.com/sdk_token'
+  // if (region === 'US' && process.env.US_JWT_FACTORY) {
+  //   return process.env.US_JWT_FACTORY
+  // }
 
-  if (region === 'CA' && process.env.CA_JWT_FACTORY) {
-    return process.env.CA_JWT_FACTORY
-  }
+  // if (region === 'CA' && process.env.CA_JWT_FACTORY) {
+  //   return process.env.CA_JWT_FACTORY
+  // }
 
-  if (region === 'EU' && process.env.JWT_FACTORY) {
-    return process.env.JWT_FACTORY
-  }
+  // if (region === 'EU' && process.env.JWT_FACTORY) {
+  //   return process.env.JWT_FACTORY
+  // }
 
   throw new Error('No JWT_FACTORY env provided')
 }
@@ -550,7 +551,8 @@ export const getToken = (
 
   request.setRequestHeader(
     'Authorization',
-    `BASIC ${process.env.SDK_TOKEN_FACTORY_SECRET}`
+    // `BASIC ${process.env.SDK_TOKEN_FACTORY_SECRET}`
+    `BASIC ONLY_TO_BE_USED_BY_ONFIDO`
   )
 
   request.onload = () => {
@@ -589,7 +591,8 @@ export const createCheckIfNeeded = (
 
   request.setRequestHeader(
     'Authorization',
-    `BASIC ${process.env.SDK_TOKEN_FACTORY_SECRET}`
+    // `BASIC ${process.env.SDK_TOKEN_FACTORY_SECRET}`
+    `BASIC ONLY_TO_BE_USED_BY_ONFIDO`
   )
 
   request.onload = () => {

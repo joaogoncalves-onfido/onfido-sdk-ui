@@ -14,9 +14,9 @@ import type { SdkOptions } from '~types/sdk'
 const channel = new MessageChannel()
 const port1 = channel.port1
 
-if (process.env.NODE_ENV === 'development') {
-  require('preact/devtools')
-}
+// if (process.env.NODE_ENV === 'development') {
+  // require('preact/devtools')
+// }
 
 const saveSdkOptions = (sdkOptions: SdkOptions) => {
   if (sdkOptions) {
@@ -140,7 +140,7 @@ const SdkPreviewer = () => {
         className={`iframe-wrapper${viewOptions.darkBackground ? ' dark' : ''}`}
       >
         <iframe
-          src={`/index.html${window.location.search}`}
+          src={`/index-2.html${window.location.search}`}
           ref={iframe}
           style={{
             width: viewOptions.iframeWidth,
