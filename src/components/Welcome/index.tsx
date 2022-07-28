@@ -5,7 +5,7 @@ import { Button } from '@onfido/castor-react'
 import { useSdkOptions } from '~contexts'
 import { useLocales } from '~locales'
 import theme from 'components/Theme/style.scss'
-import { trackComponent } from '../../Tracker'
+import { appendToTracking, trackComponent } from '../../Tracker'
 import PageTitle from '../PageTitle'
 import ScreenLayout from '../Theme/ScreenLayout'
 import { DefaultContent, DocVideoContent } from './Content'
@@ -63,7 +63,6 @@ const Welcome: FunctionComponent<StepComponentBaseProps> = ({
 }) => {
   const [{ useWorkflow }, { findStep }] = useSdkOptions()
   const { translate } = useLocales()
-
   const welcomeStep = findStep('welcome')
   const {
     title: customTitle,

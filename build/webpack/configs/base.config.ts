@@ -42,5 +42,5 @@ export const baseConfig = {
     __dirname: false,
   },
 
-  devtool: PRODUCTION_BUILD ? 'source-map' : 'cheap-module-source-map',
+  devtool: PRODUCTION_BUILD ? 'source-map' : 'eval-cheap-module-source-map',
 }

@@ -71,6 +71,13 @@ export const sendAnalyticsEvent = (
     return
   }
 
+  if (
+    eventData.eventName === 'DOCUMENT_CONFIRMATION' ||
+    eventData.eventName === 'DOCUMENT_CAPTURE'
+  ) {
+    debugger
+  }
+
   const requiredFields = {
     event_uuid: uuidv4(),
     event: eventData.eventName,

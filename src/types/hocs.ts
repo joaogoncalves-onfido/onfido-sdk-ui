@@ -32,8 +32,11 @@ export type TrackScreenCallback = (
   properties?: Record<string, unknown>
 ) => void
 
+export type TrackCallback = () => Record<string, unknown>
+
 export type WithTrackingProps = {
   trackScreen: TrackScreenCallback
+  trackPropertiesBeforeMount?: TrackCallback
 }
 
 export type WithCaptureVariantProps = {

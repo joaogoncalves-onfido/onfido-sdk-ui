@@ -6,6 +6,7 @@ import { appendToTracking } from '../../Tracker'
 import { localised } from '~locales'
 import Confirm, { ConfirmProps } from './Confirm'
 import { RootState } from '~types/redux'
+import useSdkConfigurationService from '~contexts/useSdkConfigurationService'
 
 const mapStateToProps = (
   { captures, globals: { isFullScreen, imageQualityRetries } }: RootState,
@@ -16,7 +17,30 @@ const mapStateToProps = (
   imageQualityRetries,
 })
 
-const TrackedConfirmComponent = appendToTracking(Confirm, 'confirmation')
+const WrappedConfirm = (props: ConfirmProps) => {
+  const sdkConfiguration = useSdkConfigurationService()
+
+  return (
+    <Confirm
+      {...props}
+      trackPropertiesBeforeMount={() => {
+        console.log('trackBeforeMount')
+        return {
+          documentType: props.documentType,
+          countryCode: props.idDocumentIssuingCountry?.country_alpha2,
+          attemptCount: props.imageQualityRetries,
+          maxRetryCount: sdkConfiguration.document_capture.max_total_retries,
+          warningOrigin: 'iqs',
+          // todo: add warning like so: document_warning: { blur: "warning", barcode: "warning, face: "warning"}
+        }
+      }}
+    />
+  )
+}
+
+console.log('appendToTracking0')
+const TrackedConfirmComponent = appendToTracking(WrappedConfirm, 'confirmation')
+console.log('appendToTracking1')
 // @ts-ignore
 const MapConfirm = connect(mapStateToProps)(localised(TrackedConfirmComponent))
 

@@ -232,8 +232,8 @@ const Document = (props: Props) => {
     onError: handleError,
   }
   const renderTitle = <PageTitle title={title} smaller />
-  const enableLiveDocumentCapture =
-    useLiveDocumentCapture && (!isDesktop || isHybrid)
+  const enableLiveDocumentCapture = true
+  //useLiveDocumentCapture && (!isDesktop || isHybrid)
 
   if (hasCamera && useWebcam) {
     return (
@@ -245,6 +245,7 @@ const Document = (props: Props) => {
       />
     )
   }
+  console.log('here')
 
   if (hasCamera && enableLiveDocumentCapture) {
     if (!documentType) {
@@ -252,7 +253,13 @@ const Document = (props: Props) => {
       throw new Error('documentType not provided')
     }
 
+    console.log(
+      sdkConfiguration.experimental_features?.enable_multi_frame_capture
+    )
+
     if (sdkConfiguration.experimental_features?.enable_multi_frame_capture) {
+      console.log('here 2')
+
       return (
         <DocumentMultiFrame
           documentType={documentType}
@@ -264,6 +271,7 @@ const Document = (props: Props) => {
       )
     }
 
+    console.log('liveCapture')
     return (
       <DocumentLiveCapture
         containerClassName={style.liveDocumentContainer}
@@ -273,6 +281,7 @@ const Document = (props: Props) => {
         renderFallback={renderFallback}
         renderTitle={renderTitle}
         trackScreen={trackScreen}
+        trackPropertiesBeforeMount={() => ({ toto: props.imageQualityRetries })}
       />
     )
   }

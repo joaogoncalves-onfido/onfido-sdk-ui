@@ -68,6 +68,7 @@ export type ConfirmProps = {
   WithLocalisedProps
 
 export const Confirm = (props: ConfirmProps) => {
+  console.log('confirm')
   const [uploadInProgress, setUploadInProgress] = useState(false)
   const [error, setErrorProp] = useState<ErrorProp | undefined>(undefined)
   const sdkConfiguration = useSdkConfigurationService()
@@ -534,22 +535,25 @@ export const Confirm = (props: ConfirmProps) => {
   }
 
   return (
-    <Previews
-      isFullScreen={props.isFullScreen}
-      capture={props.capture}
-      retakeAction={onRetake}
-      confirmAction={onConfirm}
-      isUploading={uploadInProgress}
-      error={error}
-      trackScreen={props.trackScreen}
-      method={props.method}
-      //@ts-ignore todo optional in Previews
-      documentType={props.documentType}
-      //@ts-ignore todo optional in Previews
-      poaDocumentType={props.poaDocumentType}
-      forceRetake={error?.type === 'error'}
-      onVideoError={onVideoPreviewError}
-    />
+    <div>
+      aa
+      <Previews
+        isFullScreen={props.isFullScreen}
+        capture={props.capture}
+        retakeAction={onRetake}
+        confirmAction={onConfirm}
+        isUploading={uploadInProgress}
+        error={error}
+        trackScreen={props.trackScreen}
+        method={props.method}
+        //@ts-ignore todo optional in Previews
+        documentType={props.documentType}
+        //@ts-ignore todo optional in Previews
+        poaDocumentType={props.poaDocumentType}
+        forceRetake={error?.type === 'error'}
+        onVideoError={onVideoPreviewError}
+      />
+    </div>
   )
 }
 

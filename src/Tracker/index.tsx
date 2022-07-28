@@ -96,8 +96,10 @@ const sendScreen = (
 const appendToTracking = <P extends WithTrackingProps>(
   WrappedComponent: ComponentType<P>,
   ancestorScreenNameHierarchy?: string
-): ComponentType<P> =>
-  class TrackedComponent extends Component<P> {
+): ComponentType<P> => {
+  console.log('appendToTracking - name' + WrappedComponent.name)
+  console.log('appendToTracking - displayName' + WrappedComponent.displayName)
+  return class TrackedComponent extends Component<P> {
     trackScreen: TrackScreenCallback = (
       screenNameHierarchy?: string | string[],
       ...others
@@ -113,9 +115,14 @@ const appendToTracking = <P extends WithTrackingProps>(
       )
 
     render = () => (
-      <WrappedComponent {...this.props} trackScreen={this.trackScreen} />
+      <WrappedComponent
+        {...this.props}
+        trackScreen={this.trackScreen}
+        trackPropertiesBeforeMount={this.props.trackPropertiesBeforeMount}
+      />
     )
   }
+}
 
 type AnalyticsDynamicProperties = Record<string, unknown>
 
@@ -126,10 +133,24 @@ const trackComponent = <P extends WithTrackingProps>(
   class TrackedComponent extends Component<P> {
     callback?: () => AnalyticsDynamicProperties = undefined
     componentDidMount() {
-      const properties =
-        typeof this.callback === 'function' ? this.callback() : undefined
+      console.log('didMount - name' + WrappedComponent.name)
+      console.log('didMount - displayName' + WrappedComponent.displayName)
+      //console.log('didMount' + WrappedComponent)
 
+      const properties = this.props.trackPropertiesBeforeMount
+        ? this.props.trackPropertiesBeforeMount()
+        : undefined
+      // typeof this.callback === 'function' ? this.callback() : undefined
+
+      console.log(properties)
       this.props.trackScreen(screenName, properties)
+    }
+
+    componentDidUpdate(prevProps: P) {
+      console.log('didUpdate - name' + WrappedComponent.name)
+      console.log('didUpdate - displayName' + WrappedComponent.displayName)
+      console.log(prevProps)
+      console.log(this.props)
     }
 
     trackPropertiesBeforeMount = (cb: () => AnalyticsDynamicProperties) => {
