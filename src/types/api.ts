@@ -269,6 +269,7 @@ export interface ExperimentalFeatures {
 
 export interface SdkFeatures {
   enable_require_applicant_consents?: boolean
+  disable_cross_device_sms?: boolean
 }
 
 export interface OnDeviceValidation {

@@ -32,7 +32,7 @@ export const install = ({ useGlobalListeners }: InstallProps = {}) => {
     return
   }
 
-  extendPreact()
+  // extendPreact()
 
   const integrations = [
     useGlobalListeners && new GlobalHandlers(),

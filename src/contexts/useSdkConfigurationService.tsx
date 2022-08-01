@@ -21,6 +21,7 @@ const defaultConfiguration: SdkConfiguration = {
   },
   sdk_features: {
     enable_require_applicant_consents: true,
+    disable_cross_device_sms: true,
   },
   document_capture: {
     max_total_retries: 1,
@@ -74,6 +75,20 @@ export const SdkConfigurationServiceProvider = ({
 
 const useSdkConfigurationService = () => {
   return useContext(SdkConfigurationServiceContext)
+}
+
+export const withSdkConfigurationService = (Comp) => (props, children) => {
+  return (
+    <SdkConfigurationServiceContext.Consumer>
+      {(sdkConfiguration) => {
+        return (
+          <Comp {...props} sdkConfiguration={sdkConfiguration}>
+            {children}
+          </Comp>
+        )
+      }}
+    </SdkConfigurationServiceContext.Consumer>
+  )
 }
 
 export default useSdkConfigurationService
