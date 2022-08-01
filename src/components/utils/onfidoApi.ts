@@ -559,9 +559,10 @@ const sendFile = <T>(
 
 export const sendAnalytics = (
   url: string | undefined,
-  payload: string
+  payload: string,
+  token: string
 ): void => {
-  const endpoint = `${url}/v3/analytics`
+  const endpoint = `${url}/v4/analytics`
 
   performHttpRequest(
     {
@@ -569,6 +570,7 @@ export const sendAnalytics = (
       contentType: 'application/json',
       endpoint,
       payload,
+      token: `Bearer ${token}`,
     },
     () => {},
     (request) => {
