@@ -1,4 +1,4 @@
-import { ActiveVideoCapture, LivenessError } from '@onfido/active-video-capture'
+import { ActiveVideoCapture, LivenessError, TrackingEvent } from '@onfido/active-video-capture'
 import { h, FunctionComponent } from 'preact'
 import { useState } from 'preact/hooks'
 import { useDispatch } from 'react-redux'
@@ -34,6 +34,7 @@ const ActiveVideo: FunctionComponent<Props> = (props) => {
     mobileFlow,
     hasGrantedPermission,
     onUserMedia,
+    trackScreen,
   } = props
   const [error, setError] = useState<LivenessError | null>()
   const dispatch = useDispatch<Dispatch<CombinedActions>>()
@@ -58,9 +59,13 @@ const ActiveVideo: FunctionComponent<Props> = (props) => {
     nextStep()
   }
 
+  const track = (event: TrackingEvent): void => {
+    trackScreen(event)
+  }
+
   if (error === LivenessError.FACE_DETECTION_TIMEOUT) {
     return (
-      <FaceNotDetected restart={() => setError(null)} translate={translate} />
+      <FaceNotDetected restart={() => setError(null)} translate={translate} trackScreen={trackScreen}/>
     )
   } else if (error) {
     console.error(`Unsupported error: ${error}`)
@@ -76,8 +81,9 @@ const ActiveVideo: FunctionComponent<Props> = (props) => {
       onSuccess={onSuccess}
       onUserMedia={onUserMedia}
       hasGrantedPermission={!!hasGrantedPermission}
+      track={track}
     />
   )
 }
 
-export default trackComponent(localised(withPermissionsFlow(ActiveVideo)))
+export default trackComponent(localised(withPermissionsFlow(ActiveVideo)), 'face_liveness')

@@ -12,14 +12,21 @@ import { PersonIcon } from '../assets/PersonIcon'
 import { Wrapper } from '../Wrapper'
 import { BaseScreen } from '../BaseScreen'
 import { localised } from '~locales'
+import { trackComponent } from 'Tracker'
+import type { 
+  WithTrackingProps,
+  WithLocalisedProps,
+  TrackScreenCallback,
+} from '~types/hocs'
 
-interface Props {
+type Props = {
   restart: () => void
-  translate: TranslateCallback
-}
+} & WithTrackingProps &
+  WithLocalisedProps
 
 const FaceNotDetected: FunctionComponent<Props> = ({
   restart,
+  trackScreen,
   translate,
 }: Props) => {
   const items = [
@@ -41,6 +48,11 @@ const FaceNotDetected: FunctionComponent<Props> = ({
     },
   ]
 
+  const handleRestart = (): void => {
+    trackScreen('no_face_detected_restart_clicked')
+    restart()
+  }
+
   return (
     <BaseScreen>
       <Wrapper>
@@ -58,7 +70,7 @@ const FaceNotDetected: FunctionComponent<Props> = ({
       </Wrapper>
 
       <Footer>
-        <Button onClick={() => restart()}>
+        <Button onClick={() => handleRestart()}>
           {translate('avc_no_face_detected.button_primary_restart')}
         </Button>
       </Footer>
@@ -66,4 +78,4 @@ const FaceNotDetected: FunctionComponent<Props> = ({
   )
 }
 
-export default localised(FaceNotDetected)
+export default trackComponent(localised(FaceNotDetected), 'no_face_detected')
